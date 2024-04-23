@@ -1,14 +1,10 @@
 ﻿using Recipe_Site.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.Net.Mail;
 using System.Net;
-using Microsoft.AspNetCore.Html;
 using System.Text;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Cryptography;
-using Microsoft.Extensions.Configuration;
 
 namespace Recipe_Site.Controllers
 {

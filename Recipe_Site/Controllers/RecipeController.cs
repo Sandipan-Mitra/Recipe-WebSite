@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Recipe_Site.Models;
 
 namespace Recipe_Site.Controllers
@@ -17,6 +17,17 @@ namespace Recipe_Site.Controllers
         public async Task<IActionResult> Recipes(string search)
         {
             var emailid = HttpContext.Session.GetString("EmailID");
+            TempData["EmailID"] = HttpContext.Session.GetString("EmailID");
+            TempData["Login"] = HttpContext.Session.GetInt32("Login");
+            if (HttpContext.Session.GetInt32("PageLoadCount") == null)
+            {
+                HttpContext.Session.SetInt32("PageLoadCount", 1);
+            }
+            else
+            {
+                HttpContext.Session.SetInt32("PageLoadCount", ((int)HttpContext.Session.GetInt32("PageLoadCount") + 1));
+            }
+            TempData["PageLoadCount"] = HttpContext.Session.GetInt32("PageLoadCount");
             List<Recipe> List;
             ViewBag.search = search;
             if (!string.IsNullOrEmpty(emailid))
@@ -67,6 +78,7 @@ namespace Recipe_Site.Controllers
                 recipe.FoodImage = UploadFile(recipe.ImageFile);
                 await db.AddAsync(recipe);
                 await db.SaveChangesAsync();
+                TempData["Message"] = "Recipe Added Successfully";
                 return RedirectToAction("Recipes");
             }
             catch (Exception ex)
@@ -115,6 +127,7 @@ namespace Recipe_Site.Controllers
                 }
                 db.Update(recipe);
                 await db.SaveChangesAsync();
+                TempData["Message"] = "Recipe Updated Successfully";
                 return RedirectToAction("Recipes");
             }
             catch (Exception ex)
@@ -128,8 +141,14 @@ namespace Recipe_Site.Controllers
             try
             {
                 var rowdetails = await db.tblRecipes.FirstOrDefaultAsync(p => p.RecipeID == id);
+                var Imgpath = Path.Combine(env.WebRootPath, "RecipeImages", rowdetails.FoodImage);
+                if (System.IO.File.Exists(Imgpath))
+                {
+                    System.IO.File.Delete(Imgpath);
+                }
                 db.Remove(rowdetails);
                 await db.SaveChangesAsync();
+                TempData["Message"] = "Recipe Deleted Successfully";
                 return RedirectToAction("Recipes");
             }
             catch (Exception ex)
@@ -142,6 +161,7 @@ namespace Recipe_Site.Controllers
         {
             var rowdetails = await db.tblRecipes.FirstOrDefaultAsync(p => p.RecipeID == id);
             string[] Ingredients;
+            rowdetails.RecipeTitle = rowdetails.RecipeTitle.Trim().ApplyCase(LetterCasing.Title);
             Ingredients = rowdetails.Ingredients.Split(',');
             if (rowdetails.Ingredients.Contains("\n"))
             {
@@ -157,6 +177,8 @@ namespace Recipe_Site.Controllers
                 ViewBag.Instructions = rowdetails.Instructions.Split('\n');
             }
             ViewBag.Tags = rowdetails.Tags.Split(",");
+            rowdetails.Category = rowdetails.Category.Trim().ApplyCase(LetterCasing.Sentence);
+            rowdetails.Author =rowdetails.Author.Trim().ApplyCase(LetterCasing.Title);
             return View(rowdetails);
         }
         string UploadFile(IFormFile obj)

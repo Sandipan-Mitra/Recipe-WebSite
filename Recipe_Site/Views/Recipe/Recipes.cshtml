@@ -7,6 +7,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@if (TempData["EmailID"] != null && Convert.ToInt32(TempData["Login"]) == 1 && Convert.ToInt32(TempData["PageLoadCount"]) <= 1)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        toastr.success('Successfully Logged In!');
+    </script>
+}
+@if (TempData["Message"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        toastr.success('@TempData["Message"]');
+    </script>
+}
 <div class="d-flex">
     <h1>Recipes</h1>
     <a type="button" asp-action="AddRecipe" asp-controller="Recipe" class="btn btn-success btn-md addrecipebtn"><i class="bi bi-plus-square-fill"></i> ADD</a>

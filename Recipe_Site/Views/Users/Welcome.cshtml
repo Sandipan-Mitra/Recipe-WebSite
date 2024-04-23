@@ -6,14 +6,14 @@
 }
 
 <h1>Welcome <a class="text-info" asp-action="Edit" asp-route-emailid="@Model.EmailId"><u>@Model.Fname @Model.Lname</u></a></h1>
-@if (ViewBag.EmailId != null && ViewBag.Login == 1)
+@* @if (ViewBag.EmailId != null && ViewBag.Login == 1)
 {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script>
         toastr.success('Successfully Logged In!');
     </script>
-}
+} *@
 <hr />
 <dl class="row card">
     @* <dt class = "col-sm-2">
