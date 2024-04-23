@@ -1,0 +1,166 @@
+﻿@model Recipe_Site.Models.Recipe
+
+@{
+    ViewData["Title"] = "AddRecipe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* <div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddRecipe">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RecipeDescription" class="control-label"></label>
+                <input asp-for="RecipeDescription" class="form-control" />
+                <span asp-validation-for="RecipeDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RecipeTitle" class="control-label"></label>
+                <input asp-for="RecipeTitle" class="form-control" />
+                <span asp-validation-for="RecipeTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredients" class="control-label"></label>
+                <input asp-for="Ingredients" class="form-control" />
+                <span asp-validation-for="Ingredients" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Instructions" class="control-label"></label>
+                <input asp-for="Instructions" class="form-control" />
+                <span asp-validation-for="Instructions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalTime" class="control-label"></label>
+                <input asp-for="TotalTime" class="form-control" />
+                <span asp-validation-for="TotalTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Difficulty" class="control-label"></label>
+                <input asp-for="Difficulty" class="form-control" />
+                <span asp-validation-for="Difficulty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tags" class="control-label"></label>
+                <input asp-for="Tags" class="form-control" />
+                <span asp-validation-for="Tags" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FoodImage" class="control-label"></label>
+                <input asp-for="FoodImage" class="form-control" />
+                <span asp-validation-for="FoodImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Source" class="control-label"></label>
+                <input asp-for="Source" class="form-control" />
+                <span asp-validation-for="Source" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Notes" class="control-label"></label>
+                <input asp-for="Notes" class="form-control" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div> *@
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Add Recipe</h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 card p-2">
+            <form asp-action="AddRecipe" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group form-floating mb-2">
+                    <input asp-for="RecipeTitle" class="form-control" placeholder="" />
+                    <label asp-for="RecipeTitle" class="control-label"></label>
+                    <span asp-validation-for="RecipeTitle" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="RecipeDescription" class="control-label"></label>
+                    <textarea class="form-control" asp-for="RecipeDescription" rows="4" placeholder="Enter Description"></textarea>
+                    <span asp-validation-for="RecipeDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="Ingredients" class="control-label"></label>
+                    <textarea class="form-control" asp-for="Ingredients" rows="4" placeholder="Separate each ingredient with a comma or newline (e.g., 1 cup flour, 2 eggs, ...)"></textarea>
+                    <span asp-validation-for="Ingredients" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="Instructions" class="control-label"></label>
+                    <textarea class="form-control" asp-for="Instructions" rows="4" placeholder="Separate each instruction with a dot or newline (e.g., instruction1.instruction2)"></textarea>
+                    <span asp-validation-for="Instructions" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    @* <label asp-for="Difficulty" class="control-label"></label> *@
+                    <select class="form-control" asp-for="Difficulty">
+                        <option class="bg-body">--Select difficulty--</option>
+                        <option class="bg-body">Easy</option>
+                        <option class="bg-body">Medium</option>
+                        <option class="bg-body">Hard</option>
+                    </select>
+                    <span asp-validation-for="Difficulty" class="text-danger"></span>
+                </div>
+                <div class="form-group form-floating mb-2">
+                    <input asp-for="Category" class="form-control" placeholder="" />
+                    <label asp-for="Category" class="control-label"></label>
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+                <div class="form-group form-floating mb-2">
+                    <input asp-for="Tags" class="form-control" placeholder="" />
+                    <label asp-for="Tags" class="control-label"></label>
+                    <small class="form-text text-muted m-1">Separate tags with a comma (e.g., vegetarian, pasta, ...)</small>
+                    <span asp-validation-for="Tags" class="text-danger"></span>
+                </div>
+                <div class="form-group form-floating mb-2">
+                    <input asp-for="Author" class="form-control" placeholder="" />
+                    <label asp-for="Author" class="control-label"></label>
+                    <span asp-validation-for="Author" class="text-danger"></span>
+                </div>
+                <div class="form-group form-floating mb-2">
+                    <input asp-for="Source" class="form-control" placeholder="" />
+                    <label asp-for="Source" class="control-label"></label>
+                    <span asp-validation-for="Source" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="Notes" class="control-label"></label>
+                    <textarea class="form-control" asp-for="Notes" rows="4" placeholder="Enter notes"></textarea>
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="TotalTime" class="control-label"></label>
+                    <input asp-for="TotalTime" class="form-control" />
+                    <span asp-validation-for="TotalTime" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="FoodImage" class="control-label"></label>
+                    <input asp-for="FoodImage" class="form-control" hidden />
+                    <input asp-for="ImageFile" class="form-control" accept=".jpg,.jpeg" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+                <!-- Submit Button -->
+                <div>
+                    <input type="submit" value="Submit" class="btn btn-success" />
+                    <a class="text-info d-flex" asp-action="Recipes">Back to Recipes</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

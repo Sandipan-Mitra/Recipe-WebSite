@@ -1,0 +1,114 @@
+﻿@model Recipe_Site.Models.Recipe
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* <h1>Details</h1>
+<hr /> *@
+<div class="backtorecipe">
+    <a asp-action="Recipes" asp-controller="Recipe" class="btn btn-primary"><i class="bi bi-arrow-left-circle-fill"></i> Back to Recipes</a>
+    @if (HttpContextAccessor.HttpContext.Session.GetString("EmailID") == Model.EmailID)
+    {
+        <a class="btn btn-outline-warning m-1" asp-action="EditRecipe" asp-route-id="@Model.RecipeID">Edit</a>
+        <a class="btn btn-danger m-1" style="background-color:crimson" asp-action="DeleteRecipe" asp-route-id="@Model.RecipeID" onclick="return confirm('Are you sure you want to delete this Recipe [@Model.RecipeTitle]');"><i class="bi bi-trash3-fill"></i></a>
+    }
+</div>
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-lg-8">
+            <!-- Recipe Title -->
+            <h1 class="mb-4">@Model.RecipeTitle</h1>
+            <!-- Recipe Image -->
+            <img src="~/RecipeImages/@Model.FoodImage" class="img-fluid recipe-image mb-4 img-thumbnail" alt="Recipe Image">
+            <!-- Recipe Description -->
+            <p class="lead mb-4">@Model.RecipeDescription</p>
+            <!-- Ingredients -->
+            <div class="row mt-3">
+                <div class="col-lg-4">
+                    <h2>Ingredients</h2>
+                    <ul>
+                        <!-- Add more ingredients dynamically -->
+                        @foreach (var item in ViewBag.Ingredient1)
+                        {
+                            <li>@item</li>
+                        }
+                    </ul>
+                </div>
+                <div class="col-lg-5 pt-1" style="margin-top:3rem;">
+                    <ul>
+                        <!-- Add more ingredients dynamically -->
+                        @foreach (var item in ViewBag.Ingredient2)
+                        {
+                            <li>@item</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Instructions -->
+            <h2 class="mt-4">Instructions</h2>
+            <ul style="padding-left:15px">
+                <!-- Add more steps dynamically -->
+                @for (var i = 0; i < ViewBag.Instructions.Length; i++)
+                {
+                    <li class="list-inline-item d-flex">Step @(i + 1): @ViewBag.Instructions[i]</li>
+                }
+            </ul>
+        </div>
+        <div class="col-lg-4">
+            <!-- Recipe Details -->
+            <div class="card" id="sidecard">
+                <div class="card-body">
+                    <!-- Total Time -->
+                    <p><strong>Total Time:</strong> @Model.TotalTime.TimeOfDay <i class="bi bi-hourglass-split"></i></p>
+                    <!-- Difficulty -->
+                    @* <p><strong>Difficulty:</strong> <span style="background-color:green">@Model.Difficulty</span></p> *@
+                    <div class="mb-3">
+                        <strong>Difficulty:</strong>
+                        @switch (Model.Difficulty)
+                        {
+                            case "Easy":
+                                <span class="badge badge-success bg-success">@Model.Difficulty</span>
+                                break;
+                            case "Medium":
+                                <span class="badge badge-warning bg-warning text-dark">@Model.Difficulty</span>
+                                break;
+                            case "Hard":
+                                <span class="badge badge-danger bg-danger">@Model.Difficulty</span>
+                                break;
+                            default:
+                                <span class="badge badge-secondary bg-secondary">@Model.Difficulty</span>
+                                break;
+                        }
+                    </div>
+                    <!-- Category -->
+                    <p><strong>Category:</strong> @Model.Category</p>
+                    <!-- Tags -->
+                    @* <p><strong>Tags:</strong> @Model.Tags</p> *@
+                    <div class="mb-3">
+                        <strong>Tags:</strong>
+                        @foreach (var tag in ViewBag.Tags)
+                        {
+                            <span class="badge badge-secondary bg-light">#@tag.Trim()</span>
+                        }
+                    </div>
+                    <!-- Author -->
+                    <p><strong>Author:</strong> @Model.Author</p>
+                    <!-- Source -->
+                    <p><strong>Source:</strong> <a href="https://@Model.Source" target="_blank">@Model.Source</a></p>
+                    <!-- Notes -->
+                    @* <p><strong>Notes:</strong> <span class="bg-info">@Model.Notes</span></p> *@
+                    <div class="alert alert-info bg-info" role="alert">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        <strong><i class="bi bi-info-circle"></i>  Notes:</strong> @Model.Notes
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

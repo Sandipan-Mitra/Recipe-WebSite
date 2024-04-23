@@ -1,0 +1,67 @@
+﻿@model Recipe_Site.Models.Users
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+<hr />
+@if (ViewBag.Exception != null)
+{
+    <label class="text-danger">@ViewBag.Exception</label>
+}
+<div class="row card p-1 m-3">
+    <div class="col-md-8">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="EmailId" />
+            <div class="form-group mb-1">
+                <label>Password :</label>
+                <a class="text-success" asp-action="ForgetPassword">Forgot/Reset Password</a>
+                @* <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span> *@
+            </div>
+            <div class="form-group col-md-5">
+                <label asp-for="EmailId" class="control-label"></label>
+                <input asp-for="EmailId" class="form-control" disabled/>
+                <span asp-validation-for="EmailId" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-5">
+                <label asp-for="Fname" class="control-label"></label>
+                <input asp-for="Fname" class="form-control" />
+                <span asp-validation-for="Fname" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-5">
+                <label asp-for="Lname" class="control-label"></label>
+                <input asp-for="Lname" class="form-control" />
+                <span asp-validation-for="Lname" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-5">
+                <label asp-for="DOB" class="control-label"></label>
+                <input asp-for="DOB" class="form-control" />
+                <span asp-validation-for="DOB" class="text-danger"></span>
+            </div>
+            <div class="row form-group">
+                <div class="col-5">
+                <label asp-for="ProfilePic" class="control-label"></label>
+                <input asp-for="ProfilePic" class="form-control" hidden/>
+                <input asp-for="ImageFile" class="form-control" accept=".jpg,.jpeg" data-val="false" />
+                <span asp-validation-for="ProfilePic" class="text-danger"></span>
+                </div>
+                <div class="col-2 mt-3">
+                    <img src="~/ProfileImages/@Model.ProfilePic" class="img-thumbnail img-fluid" />
+                </div>
+            </div>
+            <div class="form-group mt-2">
+                <input type="submit" value="Update" class="btn btn-outline-warning" />
+                <a class="mt-1 d-flex" asp-action="Welcome">Back to Welcome</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

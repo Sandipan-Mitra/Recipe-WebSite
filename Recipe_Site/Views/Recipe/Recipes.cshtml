@@ -1,0 +1,121 @@
+﻿@model IEnumerable<Recipe_Site.Models.Recipe>
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Recipe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex">
+    <h1>Recipes</h1>
+    <a type="button" asp-action="AddRecipe" asp-controller="Recipe" class="btn btn-success btn-md addrecipebtn"><i class="bi bi-plus-square-fill"></i> ADD</a>
+</div>
+<div class="container-fluid w-50">
+    <form class="d-flex">
+        <input class="form-control me-sm-2" type="search" name="search" value="@ViewBag.search" placeholder="Search">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
+
+@* Old Design *@
+
+@* <div class="row pb-3">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-3 col-sm-6">
+            <div class="row p-2">
+                <div class="col-12 p-1">
+                    <div class="card border-0 p-3 shadow  border-top border-5 rounded">
+                        <img src="~/RecipeImages/@item.FoodImage" class="card-img-top rounded img-thumbnail" />
+                        <div class="card-body pb-0">
+                            <div class="pl-1">
+
+                                <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@item.RecipeTitle</p>
+                                <p class="card-title text-warning text-center">by <b>@item.Author</b></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div> *@
+
+@* New design *@
+<div class="row pb-3">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-3 col-sm-6">
+            <div class="row p-2">
+                <div class="col-12 p-1">
+                    <div class="card-container">
+                        @if (item.RecipeTitle.Length > 16)
+                        {
+                            @if (HttpContextAccessor.HttpContext.Session.GetString("EmailID") == item.EmailID)
+                            {
+                                <div class="card border-0 p-3 shadow border-top border-5 rounded" style="background-color:aquamarine">
+                                    <a asp-controller="Recipe" asp-action="Details" asp-route-id="@item.RecipeID">
+                                        <img src="~/RecipeImages/@item.FoodImage" class="card-img-top rounded img-thumbnail" />
+                                    </a>
+                                    <div class="card-body pb-0">
+                                        <div class="pl-1">
+                                            <p class="card-title h6 text-dark opacity-10 text-uppercase text-center">@item.RecipeTitle</p>
+                                            <p class="card-title text-warning text-center">by <b>@item.Author</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="card border-0 p-3 shadow border-top border-5 rounded">
+                                    <a asp-controller="Recipe" asp-action="Details" asp-route-id="@item.RecipeID">
+                                        <img src="~/RecipeImages/@item.FoodImage" class="card-img-top rounded img-thumbnail" />
+                                    </a>
+                                    <div class="card-body pb-0">
+                                        <div class="pl-1">
+                                            <p class="card-title h6 text-dark opacity-10 text-uppercase text-center">@item.RecipeTitle</p>
+                                            <p class="card-title text-warning text-center">by <b>@item.Author</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            @if (HttpContextAccessor.HttpContext.Session.GetString("EmailID") == item.EmailID)
+                            {
+                                <div class="card border-0 p-3 shadow border-top border-5 rounded" style="margin-bottom:20px;background-color:aquamarine">
+                                    <a asp-controller="Recipe" asp-action="Details" asp-route-id="@item.RecipeID">
+                                        <img src="~/RecipeImages/@item.FoodImage" class="card-img-top rounded img-thumbnail" />
+                                    </a>
+                                    <div class="card-body pb-0">
+                                        <div class="pl-1">
+                                            <p class="card-title h6 text-dark opacity-10 text-uppercase text-center">@item.RecipeTitle</p>
+                                            <p class="card-title text-warning text-center">by <b>@item.Author</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="card border-0 p-3 shadow border-top border-5 rounded" style="margin-bottom:20px;">
+                                    <a asp-controller="Recipe" asp-action="Details" asp-route-id="@item.RecipeID">
+                                        <img src="~/RecipeImages/@item.FoodImage" class="card-img-top rounded img-thumbnail" />
+                                    </a>
+                                    <div class="card-body pb-0">
+                                        <div class="pl-1">
+                                            <p class="card-title h6 text-dark opacity-10 text-uppercase text-center">@item.RecipeTitle</p>
+                                            <p class="card-title text-warning text-center">by <b>@item.Author</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
