@@ -6,28 +6,9 @@
 }
 
 <h1>Welcome <a class="text-info" asp-action="Edit" asp-route-emailid="@Model.EmailId"><u>@Model.Fname @Model.Lname</u></a></h1>
-@* @if (ViewBag.EmailId != null && ViewBag.Login == 1)
-{
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script>
-        toastr.success('Successfully Logged In!');
-    </script>
-} *@
+
 <hr />
 <dl class="row card">
-    @* <dt class = "col-sm-2">
-    @Html.DisplayNameFor(model => model.Fname)
-    </dt>
-    <dd class = "col-sm-10">
-    @Html.DisplayFor(model => model.Fname)
-    </dd>
-    <dt class = "col-sm-2">
-    @Html.DisplayNameFor(model => model.Lname)
-    </dt>
-    <dd class = "col-sm-10">
-    @Html.DisplayFor(model => model.Lname)
-    </dd> *@
     <dt class="col-sm-2">
         @Html.DisplayNameFor(model => model.EmailId)
     </dt>
@@ -45,7 +26,6 @@
         @Html.DisplayNameFor(model => model.ProfilePic)
     </dt>
     <dd class="col-sm-2" style="width:10%">
-        @* @Html.DisplayFor(model => model.ProfilePic) *@
         <img src="~/ProfileImages/@Model.ProfilePic" class="img-thumbnail" />
     </dd>
     <a class="text-warning logout" asp-action="Logout">Logout</a>

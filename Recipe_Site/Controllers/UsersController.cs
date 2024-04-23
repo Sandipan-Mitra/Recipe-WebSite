@@ -230,17 +230,6 @@ namespace Recipe_Site.Controllers
         string UploadFile(IFormFile obj)
         {
             string fileName = "";
-            //if (obj != null && obj.ContentType.ToLower().StartsWith("application"))
-            //{
-            //    string uploadDir = Path.Combine(env.WebRootPath, "CV");
-            //    fileName = Guid.NewGuid().ToString() + "_" + Fname + "_" + Lname + Path.GetExtension(obj.FileName);
-            //    string path = Path.Combine(uploadDir, fileName);
-            //    using (var fileStream = new FileStream(path, FileMode.Create))
-            //    {
-            //        obj.CopyTo(fileStream);
-            //    }
-            //    return fileName;
-            //}
             if (obj != null && obj.ContentType.ToLower().StartsWith("image"))
             {
                 string uploadDir = Path.Combine(env.WebRootPath, "ProfileImages");

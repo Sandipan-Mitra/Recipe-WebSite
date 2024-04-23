@@ -22,31 +22,6 @@
 {
     <label class="text-danger">@ViewBag.Exception</label>
 }
-@* <hr />
-<div class="row card p-1 m-3">
-    <div class="col-md-4">
-        <form asp-action="Login">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="EmailId" class="control-label"></label>
-                <input asp-for="EmailId" placeholder="Enter your registered email" class="form-control" />
-                <span asp-validation-for="EmailId" class="text-danger"></span>
-            </div>
-            <div class="form-group" style="margin-bottom:10px">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" placeholder="Enter the password" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-primary" />
-                <a class="btn btn-outline-warning" asp-action="Registration">Register</a>
-            </div>
-            <div class="form-group mt-1">
-                <a class="text-success" asp-action="ForgetPassword">Forgot/Reset Password</a>
-            </div>
-        </form>
-    </div>
-</div> *@
 
 @* New Login Design *@
 <div class="container">
@@ -72,10 +47,6 @@
         </div>
     </div>
 </div>
-
-@* <div>
-    <a class="btn btn-outline-warning" asp-action="Login">Register</a>
-</div> *@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

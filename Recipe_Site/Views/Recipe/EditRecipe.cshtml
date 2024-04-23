@@ -5,84 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-@* <div class="row">
-    <div class="col-md-4">
-        <form asp-action="EditRecipe">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="RecipeID" />
-            <div class="form-group">
-                <label asp-for="RecipeDescription" class="control-label"></label>
-                <input asp-for="RecipeDescription" class="form-control" />
-                <span asp-validation-for="RecipeDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RecipeTitle" class="control-label"></label>
-                <input asp-for="RecipeTitle" class="form-control" />
-                <span asp-validation-for="RecipeTitle" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ingredients" class="control-label"></label>
-                <input asp-for="Ingredients" class="form-control" />
-                <span asp-validation-for="Ingredients" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Instructions" class="control-label"></label>
-                <input asp-for="Instructions" class="form-control" />
-                <span asp-validation-for="Instructions" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalTime" class="control-label"></label>
-                <input asp-for="TotalTime" class="form-control" />
-                <span asp-validation-for="TotalTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Difficulty" class="control-label"></label>
-                <input asp-for="Difficulty" class="form-control" />
-                <span asp-validation-for="Difficulty" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
-                <span asp-validation-for="Category" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Tags" class="control-label"></label>
-                <input asp-for="Tags" class="form-control" />
-                <span asp-validation-for="Tags" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Author" class="control-label"></label>
-                <input asp-for="Author" class="form-control" />
-                <span asp-validation-for="Author" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FoodImage" class="control-label"></label>
-                <input asp-for="FoodImage" class="form-control" />
-                <span asp-validation-for="FoodImage" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Source" class="control-label"></label>
-                <input asp-for="Source" class="form-control" />
-                <span asp-validation-for="Source" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Notes" class="control-label"></label>
-                <input asp-for="Notes" class="form-control" />
-                <span asp-validation-for="Notes" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmailID" class="control-label"></label>
-                <input asp-for="EmailID" class="form-control" />
-                <span asp-validation-for="EmailID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div> *@
-
 <div class="container mt-5">
     <h1 class="text-center mb-4">Edit Recipe</h1>
     <div class="row justify-content-center">
@@ -162,7 +84,6 @@
                         <img src="~/RecipeImages/@Model.FoodImage" class="img-thumbnail" />
                     </div>
                 </div>
-                <!-- Submit Button -->
                 <div>
                     <input type="submit" value="Update" class="btn btn-success" />
                     <a class="text-info d-flex" asp-action="Recipes">Back to Recipes</a>
