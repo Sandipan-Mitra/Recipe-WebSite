@@ -167,8 +167,9 @@ namespace Recipe_Site.Controllers
             {
                 Ingredients = rowdetails.Ingredients.Split('\n');
             }
-            var Ingredient1 = Ingredients.Take(Ingredients.Length / 2).ToList();
-            var Ingredient2 = Ingredients.Skip(Ingredients.Length / 2).ToList();
+            int amttotake = (Ingredients.Length/2) % 2 != 0? (Ingredients.Length / 2) + 1 : (Ingredients.Length / 2);
+            var Ingredient1 = Ingredients.Take(amttotake).ToList();
+            var Ingredient2 = Ingredients.Skip(amttotake).ToList();
             ViewBag.Ingredient1 = Ingredient1;
             ViewBag.Ingredient2 = Ingredient2;
             ViewBag.Instructions = rowdetails.Instructions.TrimEnd('.').Split('.');

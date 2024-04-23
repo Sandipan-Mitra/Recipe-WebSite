@@ -22,7 +22,7 @@
             <img src="~/RecipeImages/@Model.FoodImage" class="img-fluid recipe-image mb-4 img-thumbnail" alt="Recipe Image">
             <p class="lead mb-4">@Model.RecipeDescription</p>
             <div class="row mt-3">
-                <div class="col-lg-4">
+                <div class="col-lg-5" style="padding-right:0px">
                     <h2>Ingredients</h2>
                     <ul>
                         @foreach (var item in ViewBag.Ingredient1)
@@ -31,7 +31,7 @@
                         }
                     </ul>
                 </div>
-                <div class="col-lg-5 pt-1" style="margin-top:3rem;">
+                <div class="col-lg-5 pt-1" style="margin-top:3rem; padding-left:0px">
                     <ul>
                         @foreach (var item in ViewBag.Ingredient2)
                         {
