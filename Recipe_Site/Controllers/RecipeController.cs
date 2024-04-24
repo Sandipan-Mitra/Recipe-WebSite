@@ -18,7 +18,6 @@ namespace Recipe_Site.Controllers
         {
             var emailid = HttpContext.Session.GetString("EmailID");
             TempData["EmailID"] = HttpContext.Session.GetString("EmailID");
-            TempData["Login"] = HttpContext.Session.GetInt32("Login");
             if (HttpContext.Session.GetInt32("PageLoadCount") == null)
             {
                 HttpContext.Session.SetInt32("PageLoadCount", 1);
@@ -167,7 +166,8 @@ namespace Recipe_Site.Controllers
             {
                 Ingredients = rowdetails.Ingredients.Split('\n');
             }
-            int amttotake = (Ingredients.Length/2) % 2 != 0? (Ingredients.Length / 2) + 1 : (Ingredients.Length / 2);
+            int amttotake = (Ingredients.Length / 2) % 2 != 0 ? (Ingredients.Length / 2) + 1 : (Ingredients.Length / 2);
+            amttotake = Ingredients.Length >= 2 ? amttotake : Ingredients.Length;
             var Ingredient1 = Ingredients.Take(amttotake).ToList();
             var Ingredient2 = Ingredients.Skip(amttotake).ToList();
             ViewBag.Ingredient1 = Ingredient1;
@@ -179,7 +179,7 @@ namespace Recipe_Site.Controllers
             }
             ViewBag.Tags = rowdetails.Tags.Split(",");
             rowdetails.Category = rowdetails.Category.Trim().ApplyCase(LetterCasing.Sentence);
-            rowdetails.Author =rowdetails.Author.Trim().ApplyCase(LetterCasing.Title);
+            rowdetails.Author = rowdetails.Author.Trim().ApplyCase(LetterCasing.Title);
             return View(rowdetails);
         }
         string UploadFile(IFormFile obj)

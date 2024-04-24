@@ -33,7 +33,6 @@ namespace Recipe_Site.Controllers
         {
             try
             {
-                //var encryptedpsswrd = Encrypt(users.Password);
                 var Lresult = await db.tblUsers.FirstOrDefaultAsync(p=>p.EmailId.Equals(users.EmailId));
                 if (Lresult == null)
                 {
@@ -48,7 +47,6 @@ namespace Recipe_Site.Controllers
                 else
                 {
                     HttpContext.Session.SetString("EmailID", Lresult.EmailId);
-                    HttpContext.Session.SetInt32("Login", 1);
                     return RedirectToAction("Recipes","Recipe");
                 }
             }
@@ -63,7 +61,6 @@ namespace Recipe_Site.Controllers
         {
             try
             {
-                HttpContext.Session.SetInt32("Login", 0);
                 var user = await db.tblUsers.FirstOrDefaultAsync(p => p.EmailId.Equals(emailid));
                 return View(user);
             }catch(Exception ex)
@@ -168,9 +165,7 @@ namespace Recipe_Site.Controllers
             try
             {
                 var emailid = HttpContext.Session.GetString("EmailID");
-                var login = HttpContext.Session.GetInt32("Login");
                 ViewBag.EmailId = emailid;
-                ViewBag.Login = login;
                 if (!string.IsNullOrEmpty(emailid))
                 {
                     var details = await db.tblUsers.FirstOrDefaultAsync(p => p.EmailId == emailid);
