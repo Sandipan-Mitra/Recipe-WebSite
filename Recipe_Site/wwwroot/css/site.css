@@ -82,3 +82,13 @@ body {
 #sidecard {
     height: 60%;
 }
+
+.col-5w {
+    flex: 0 0 auto;
+    width: 38.666667%;
+}
+
+.col-3w {
+    flex: 0 0 auto;
+    width: 40%;
+}

@@ -5,3 +5,15 @@
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
+document.addEventListener("DOMContentLoaded", function () {
+    var element = document.getElementById("preimage");
+    if (element) {
+        element.style.display = "none";
+    }
+});
+function loadfile(event) {
+    var output = document.getElementById('preimage');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.style.display = "block";
+    output.style.width = "130px";
+};
