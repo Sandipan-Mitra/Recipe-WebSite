@@ -50,6 +50,10 @@ namespace Recipe_Site.Controllers
         [HttpGet]
         public IActionResult AddRecipe()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("EmailID")))
+            {
+                return RedirectToAction("Login", "Users");
+            }
             return View();
         }
         [HttpPost]
@@ -89,6 +93,10 @@ namespace Recipe_Site.Controllers
         [HttpGet]
         public async Task<IActionResult> EditRecipe(int id)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("EmailID")))
+            {
+                return RedirectToAction("Login", "Users");
+            }
             var rowdetails = await db.tblRecipes.FirstOrDefaultAsync(p => p.RecipeID == id);
             return View(rowdetails);
         }
@@ -137,6 +145,10 @@ namespace Recipe_Site.Controllers
         }
         public async Task<IActionResult> DeleteRecipe(int id)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("EmailID")))
+            {
+                return RedirectToAction("Login", "Users");
+            }
             try
             {
                 var rowdetails = await db.tblRecipes.FirstOrDefaultAsync(p => p.RecipeID == id);
@@ -158,6 +170,10 @@ namespace Recipe_Site.Controllers
         }
         public async Task<IActionResult> Details(int id)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("EmailID")))
+            {
+                return RedirectToAction("Login", "Users");
+            }
             var rowdetails = await db.tblRecipes.FirstOrDefaultAsync(p => p.RecipeID == id);
             string[] Ingredients;
             rowdetails.RecipeTitle = rowdetails.RecipeTitle.Trim().ApplyCase(LetterCasing.Title);
