@@ -137,28 +137,37 @@ namespace Recipe_Site.Controllers
         }
         public async Task<IActionResult> SendOTP(string emailid)
         {
-            var email = await db.tblUsers.FirstOrDefaultAsync(p => p.EmailId == emailid);
-            if (emailid == null)
+            try
             {
-                ModelState.AddModelError("EmailId", "Email Cannot be empty!!");
-                TempData["Error"] = "Email Cannot be empty!!";
+                var email = await db.tblUsers.FirstOrDefaultAsync(p => p.EmailId == emailid);
+                if (emailid == null)
+                {
+                    ModelState.AddModelError("EmailId", "Email Cannot be empty!!");
+                    TempData["Error"] = "Email Cannot be empty!!";
+                    return RedirectToAction("ForgetPassword");
+                }
+                else if (email == null)
+                {
+                    ModelState.AddModelError("EmailId", "Email doesn't exist in our database!!");
+                    TempData["Error"] = "Email doesn't exist in our database!!";
+                    return RedirectToAction("ForgetPassword");
+                }
+                int OTP = GenerateOTP();
+                SendMail(emailid, OTP);
+                var updateotp = await db.tblUsers.FirstOrDefaultAsync(p => p.EmailId == emailid);
+                updateotp.OTP = OTP;
+                db.Update(updateotp);
+                await db.SaveChangesAsync();
+                TempData["OTP"] = OTP;
+                TempData["EmailID"] = emailid;
+                TempData["Success"] = "Mail has been successfully sent to your registered email!";
                 return RedirectToAction("ForgetPassword");
             }
-            else if (email == null)
+            catch (Exception ex)
             {
-                ModelState.AddModelError("EmailId", "Email doesn't exist in our database!!");
-                TempData["Error"] = "Email doesn't exist in our database!!";
+                TempData["Error"] = ex.Message;
                 return RedirectToAction("ForgetPassword");
             }
-            int OTP = GenerateOTP();
-            SendMail(emailid, OTP);
-            var updateotp = await db.tblUsers.FirstOrDefaultAsync(p => p.EmailId == emailid);
-            updateotp.OTP = OTP;
-            db.Update(updateotp);
-            await db.SaveChangesAsync();
-            TempData["OTP"] = OTP;
-            TempData["EmailID"] = emailid;
-            return RedirectToAction("ForgetPassword");
         }
         public async Task<IActionResult> Welcome()
         {
@@ -284,6 +293,7 @@ namespace Recipe_Site.Controllers
             catch (SmtpException ex)
             {
                 Console.WriteLine(ex.ToString());
+                throw ex;
             }
         }
         protected static string Encrypt(string text)
