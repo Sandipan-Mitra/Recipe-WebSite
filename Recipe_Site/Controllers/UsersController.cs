@@ -221,7 +221,8 @@ namespace Recipe_Site.Controllers
                     users.Password = Encrypt(users.Password);
                     await db.tblUsers.AddAsync(users);
                     await db.SaveChangesAsync();
-                    return RedirectToAction("Login");
+                    HttpContext.Session.SetString("EmailID", users.EmailId);
+                    return RedirectToAction("Recipes", "Recipe");
                 }
                 return View();
             }
