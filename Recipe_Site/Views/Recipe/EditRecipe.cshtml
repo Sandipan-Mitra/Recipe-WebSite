@@ -77,7 +77,8 @@
                     <div class="col-5">
                         <label asp-for="FoodImage" class="control-label"></label>
                         <input asp-for="FoodImage" class="form-control" hidden />
-                        <input asp-for="ImageFile" class="form-control" accept=".jpg,.jpeg" data-val="false" />
+                        <input asp-for="ImageFile" class="form-control" accept=".jpg,.jpeg" data-val="false" onchange="loadfilerecipepreview(event)" />
+                        <img id="preimage" class="img-thumbnail img-fluid mt-2" />
                         <span asp-validation-for="ImageFile" class="text-danger"></span>
                     </div>
                     <div class="col-2 mt-3">

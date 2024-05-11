@@ -17,3 +17,10 @@ function loadfile(event) {
     output.style.display = "block";
     output.style.width = "130px";
 };
+function loadfilerecipepreview(event) {
+    var output = document.getElementById('preimage');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.style.display = "block";
+    output.style.width = "250px";
+    output.style.height = "180px";
+};
